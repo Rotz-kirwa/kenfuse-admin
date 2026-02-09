@@ -6,13 +6,7 @@ export default function AdminContributions() {
   const [search, setSearch] = useState('')
 
   useEffect(() => {
-    setContributions([
-      { id: 1, donor: 'John Kamau', amount: 5000, purpose: 'Memorial for Jane Doe', fundraiser: 'Jane Doe Memorial', date: '2024-02-15' },
-      { id: 2, donor: 'Mary Wanjiku', amount: 10000, purpose: 'Funeral expenses', fundraiser: 'Peter Omondi Funeral', date: '2024-02-14' },
-      { id: 3, donor: 'David Ochieng', amount: 3000, purpose: 'Memorial tribute', fundraiser: 'Grace Muthoni Memorial', date: '2024-02-13' },
-      { id: 4, donor: 'Sarah Njeri', amount: 7500, purpose: 'Funeral support', fundraiser: 'James Kipchoge Funeral', date: '2024-02-12' },
-      { id: 5, donor: 'Anonymous', amount: 15000, purpose: 'Memorial fund', fundraiser: 'Jane Doe Memorial', date: '2024-02-11' }
-    ])
+    setContributions([])
   }, [])
 
   const filteredContributions = contributions.filter(c =>

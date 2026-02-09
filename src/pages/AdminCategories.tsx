@@ -2,14 +2,14 @@ import { Users, Building, TrendingUp } from 'lucide-react'
 
 export default function AdminCategories() {
   const stats = {
-    totalUsers: 10234,
-    familyUsers: 9500,
-    vendors: 734,
-    familyWills: 3100,
-    familyMemorials: 4800,
-    familyFundraisers: 1150,
-    vendorProducts: 450,
-    vendorOrders: 890
+    totalUsers: 0,
+    familyUsers: 0,
+    vendors: 0,
+    familyWills: 0,
+    familyMemorials: 0,
+    familyFundraisers: 0,
+    vendorProducts: 0,
+    vendorOrders: 0
   }
 
   return (

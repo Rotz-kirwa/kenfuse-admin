@@ -12,13 +12,7 @@ export default function AdminUsers() {
   const [newUser, setNewUser] = useState({ name: '', email: '', phone: '', role: 'family', password: '' })
 
   useEffect(() => {
-    setUsers([
-      { id: 1, name: 'John Kamau', email: 'john@example.com', phone: '0712345678', role: 'family', createdAt: '2024-01-15' },
-      { id: 2, name: 'Mary Wanjiku', email: 'mary@example.com', phone: '0723456789', role: 'family', createdAt: '2024-01-20' },
-      { id: 3, name: 'Funeral Services Ltd', email: 'info@funeral.com', phone: '0734567890', role: 'vendor', createdAt: '2024-02-01' },
-      { id: 4, name: 'David Omondi', email: 'david@example.com', phone: '0745678901', role: 'family', createdAt: '2024-02-10' },
-      { id: 5, name: 'Admin User', email: 'admin@kenfuse.com', phone: '0700000000', role: 'admin', createdAt: '2024-01-01' }
-    ])
+    setUsers([])
   }, [])
 
   const filteredUsers = users.filter(user => {
