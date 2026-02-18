@@ -8,6 +8,7 @@ import AdminDashboard from './pages/AdminDashboard'
 import AdminUsers from './pages/AdminUsers'
 import AdminCategories from './pages/AdminCategories'
 import AdminContributions from './pages/AdminContributions'
+import AdminVendorApplications from './pages/AdminVendorApplications'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<AdminUsers />} />
+          <Route path="vendor-applications" element={<AdminVendorApplications />} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="contributions" element={<AdminContributions />} />
         </Route>

@@ -12,8 +12,13 @@ export default function AdminUsers() {
   const [newUser, setNewUser] = useState({ name: '', email: '', phone: '', role: 'family', password: '' })
 
   useEffect(() => {
-    setUsers([])
+    fetchUsers()
   }, [])
+
+  const fetchUsers = () => {
+    const users = JSON.parse(localStorage.getItem('kenfuse_registered_users') || '[]')
+    setUsers(users)
+  }
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(search.toLowerCase()) || 

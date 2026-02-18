@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { Users, Shield, Heart, TrendingUp, DollarSign, Eye, UserPlus, Trash2, Ban, CheckCircle } from 'lucide-react'
+import { Users, Shield, Heart, TrendingUp, DollarSign, Eye, UserPlus, Trash2, Ban, CheckCircle, Building } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { adminAPI } from '../services/api'
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -31,17 +32,32 @@ export default function AdminDashboard() {
   }
 
   useEffect(() => {
-    setStats({
-      totalUsers: 0,
-      familyUsers: 0,
-      vendors: 0,
-      totalWills: 0,
-      totalMemorials: 0,
-      totalFundraisers: 0,
-      totalContributions: 0
-    })
+    fetchStats()
     setAdmins([])
   }, [])
+
+  const fetchStats = async () => {
+    try {
+      // Fetch from backend when ready
+      const users = JSON.parse(localStorage.getItem('kenfuse_registered_users') || '[]')
+      const wills = JSON.parse(localStorage.getItem('kenfuse_wills') || '[]')
+      const memorials = JSON.parse(localStorage.getItem('kenfuse_memorials') || '[]')
+      const fundraisers = JSON.parse(localStorage.getItem('kenfuse_fundraisers') || '[]')
+      const contributions = fundraisers.reduce((sum: number, f: any) => sum + (f.raised || 0), 0)
+      
+      setStats({
+        totalUsers: users.length,
+        familyUsers: users.filter((u: any) => u.role === 'family').length,
+        vendors: users.filter((u: any) => u.role === 'vendor').length,
+        totalWills: wills.length,
+        totalMemorials: memorials.length,
+        totalFundraisers: fundraisers.length,
+        totalContributions: contributions
+      })
+    } catch (error) {
+      console.error('Error fetching stats:', error)
+    }
+  }
 
   const handleAddAdmin = (e: React.FormEvent) => {
     e.preventDefault()
@@ -119,7 +135,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid md:grid-cols-4 gap-4">
         <Link to="/users" className="card hover:shadow-lg transition-shadow">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
@@ -128,6 +144,18 @@ export default function AdminDashboard() {
             <div>
               <h3 className="font-bold">Manage Users</h3>
               <p className="text-sm text-gray-600">View all registered users</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link to="/vendor-applications" className="card hover:shadow-lg transition-shadow">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+              <Building className="w-6 h-6 text-amber-600" />
+            </div>
+            <div>
+              <h3 className="font-bold">Vendor Applications</h3>
+              <p className="text-sm text-gray-600">Review vendor requests</p>
             </div>
           </div>
         </Link>
