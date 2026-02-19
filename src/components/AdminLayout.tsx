@@ -18,9 +18,9 @@ export default function AdminLayout() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 overflow-x-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white fixed h-full">
+      <aside className="hidden md:block w-64 bg-gray-900 text-white fixed h-full">
         <div className="p-6 border-b border-gray-800">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-red-800 rounded-xl flex items-center justify-center">
@@ -64,7 +64,7 @@ export default function AdminLayout() {
       </aside>
 
       {/* Main Content */}
-      <main className="ml-64 flex-1">
+      <main className="flex-1 md:ml-64 min-w-0">
         <div className="p-6">
           <Outlet />
         </div>
