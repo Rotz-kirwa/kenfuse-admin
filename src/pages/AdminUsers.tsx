@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Search, Filter, User, Building, Trash2, Edit, UserPlus } from 'lucide-react'
 import { toast } from 'react-toastify'
+import api from '../services/api'
 
 export default function AdminUsers() {
   const [users, setUsers] = useState<any[]>([])
@@ -13,12 +14,14 @@ export default function AdminUsers() {
 
   useEffect(() => {
     fetchUsers()
+    const interval = setInterval(fetchUsers, 10000) // poll every 10s
+    return () => clearInterval(interval)
   }, [])
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/v1/users')
-      const data = await response.json()
+      const response = await api.get('/users')
+      const data = response.data
       setUsers(data.data || [])
     } catch (error) {
       console.error('Failed to fetch users:', error)
@@ -64,10 +67,13 @@ export default function AdminUsers() {
           <h1 className="text-3xl font-bold mb-2">User Management</h1>
           <p className="text-gray-600">View and manage all registered users</p>
         </div>
-        <button onClick={() => setShowAddModal(true)} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <button onClick={fetchUsers} className="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg">Refresh</button>
+          <button onClick={() => setShowAddModal(true)} className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg flex items-center gap-2">
           <UserPlus className="w-5 h-5" />
           Add User
-        </button>
+          </button>
+        </div>
       </div>
 
       <div className="card">
