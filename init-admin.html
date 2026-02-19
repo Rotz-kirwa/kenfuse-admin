@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Initialize Admin</title>
+</head>
+<body>
+    <h1>Initialize Admin Account</h1>
+    <button onclick="createAdmin()">Create Default Admin</button>
+    <div id="result"></div>
+    
+    <script>
+        function createAdmin() {
+            const defaultAdmin = {
+                id: 1,
+                name: 'Admin User',
+                email: 'admin@kenfuse.com',
+                phone: '0700000000',
+                password: 'admin123',
+                photo: '',
+                status: 'active',
+                createdAt: new Date().toISOString().split('T')[0]
+            };
+            
+            localStorage.setItem('kenfuse_admins', JSON.stringify([defaultAdmin]));
+            document.getElementById('result').innerHTML = '<p style="color: green;">Admin created! Email: admin@kenfuse.com, Password: admin123</p>';
+        }
+    </script>
+</body>
+</html>

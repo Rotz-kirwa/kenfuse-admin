@@ -33,12 +33,17 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     fetchStats()
-    setAdmins([])
+    loadAdmins()
   }, [])
+
+  const loadAdmins = () => {
+    const savedAdmins = JSON.parse(localStorage.getItem('kenfuse_admins') || '[]')
+    setAdmins(savedAdmins)
+  }
 
   const fetchStats = async () => {
     try {
-      // Fetch from backend when ready
+      // Fetch from main site localStorage
       const users = JSON.parse(localStorage.getItem('kenfuse_registered_users') || '[]')
       const wills = JSON.parse(localStorage.getItem('kenfuse_wills') || '[]')
       const memorials = JSON.parse(localStorage.getItem('kenfuse_memorials') || '[]')
@@ -47,7 +52,7 @@ export default function AdminDashboard() {
       
       setStats({
         totalUsers: users.length,
-        familyUsers: users.filter((u: any) => u.role === 'family').length,
+        familyUsers: users.filter((u: any) => u.role === 'family' || !u.role).length,
         vendors: users.filter((u: any) => u.role === 'vendor').length,
         totalWills: wills.length,
         totalMemorials: memorials.length,
@@ -62,7 +67,9 @@ export default function AdminDashboard() {
   const handleAddAdmin = (e: React.FormEvent) => {
     e.preventDefault()
     const admin = { ...newAdmin, id: admins.length + 1, createdAt: new Date().toISOString().split('T')[0] }
-    setAdmins([...admins, admin])
+    const updated = [...admins, admin]
+    setAdmins(updated)
+    localStorage.setItem('kenfuse_admins', JSON.stringify(updated))
     setNewAdmin({ name: '', email: '', phone: '', password: '', photo: '', status: 'active' })
     setPhotoPreview('')
     setShowAddAdmin(false)
@@ -70,18 +77,24 @@ export default function AdminDashboard() {
   }
 
   const handleSuspendAdmin = (id: number) => {
-    setAdmins(admins.map(a => a.id === id ? {...a, status: a.status === 'suspended' ? 'active' : 'suspended'} : a))
+    const updated = admins.map(a => a.id === id ? {...a, status: a.status === 'suspended' ? 'active' : 'suspended'} : a)
+    setAdmins(updated)
+    localStorage.setItem('kenfuse_admins', JSON.stringify(updated))
     toast.success('Admin status updated!')
   }
 
   const handleBlockAdmin = (id: number) => {
-    setAdmins(admins.map(a => a.id === id ? {...a, status: a.status === 'blocked' ? 'active' : 'blocked'} : a))
+    const updated = admins.map(a => a.id === id ? {...a, status: a.status === 'blocked' ? 'active' : 'blocked'} : a)
+    setAdmins(updated)
+    localStorage.setItem('kenfuse_admins', JSON.stringify(updated))
     toast.success('Admin status updated!')
   }
 
   const handleDeleteAdmin = (id: number) => {
     if (confirm('Are you sure you want to delete this admin?')) {
-      setAdmins(admins.filter(a => a.id !== id))
+      const updated = admins.filter(a => a.id !== id)
+      setAdmins(updated)
+      localStorage.setItem('kenfuse_admins', JSON.stringify(updated))
       toast.success('Admin deleted successfully!')
     }
   }

@@ -15,9 +15,15 @@ export default function AdminUsers() {
     fetchUsers()
   }, [])
 
-  const fetchUsers = () => {
-    const users = JSON.parse(localStorage.getItem('kenfuse_registered_users') || '[]')
-    setUsers(users)
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/v1/users')
+      const data = await response.json()
+      setUsers(data.data || [])
+    } catch (error) {
+      console.error('Failed to fetch users:', error)
+      toast.error('Failed to load users')
+    }
   }
 
   const filteredUsers = users.filter(user => {

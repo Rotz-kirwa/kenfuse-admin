@@ -4,17 +4,24 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import AdminLayout from './components/AdminLayout'
+import AdminLogin from './pages/AdminLogin'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminUsers from './pages/AdminUsers'
 import AdminCategories from './pages/AdminCategories'
 import AdminContributions from './pages/AdminContributions'
 import AdminVendorApplications from './pages/AdminVendorApplications'
 
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const token = localStorage.getItem('admin_token')
+  return token ? <>{children}</> : <Navigate to="/login" replace />
+}
+
 function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
-        <Route path="/" element={<AdminLayout />}>
+        <Route path="/login" element={<AdminLogin />} />
+        <Route path="/" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="vendor-applications" element={<AdminVendorApplications />} />
