@@ -100,7 +100,7 @@ export default function AdminUsers() {
           </select>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto responsive-table">
           <table className="w-full">
             <thead className="bg-gray-50">
               <tr>
@@ -115,7 +115,7 @@ export default function AdminUsers() {
             <tbody className="divide-y">
               {filteredUsers.map((user) => (
                 <tr key={user.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3" data-label="Name">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
                         {user.role === 'vendor' ? <Building className="w-5 h-5 text-purple-600" /> : <User className="w-5 h-5 text-purple-600" />}
@@ -123,9 +123,9 @@ export default function AdminUsers() {
                       <span className="font-medium">{user.name}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{user.email}</td>
-                  <td className="px-4 py-3 text-gray-600">{user.phone}</td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 text-gray-600" data-label="Email">{user.email}</td>
+                  <td className="px-4 py-3 text-gray-600" data-label="Phone">{user.phone}</td>
+                  <td className="px-4 py-3" data-label="Role">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                       user.role === 'admin' ? 'bg-red-100 text-red-700' :
                       user.role === 'vendor' ? 'bg-amber-100 text-amber-700' : 'bg-purple-100 text-purple-700'
@@ -133,9 +133,9 @@ export default function AdminUsers() {
                       {user.role === 'admin' ? 'Admin' : user.role === 'vendor' ? 'Vendor' : 'Family'}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{user.createdAt}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex gap-2">
+                  <td className="px-4 py-3 text-gray-600" data-label="Joined">{user.createdAt}</td>
+                  <td className="px-4 py-3" data-label="Actions">
+                    <div className="flex gap-2 justify-end">
                       <button onClick={() => { setSelectedUser(user); setShowEditModal(true); }} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
                         <Edit className="w-4 h-4" />
                       </button>
