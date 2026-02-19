@@ -10,6 +10,7 @@ import AdminUsers from './pages/AdminUsers'
 import AdminCategories from './pages/AdminCategories'
 import AdminContributions from './pages/AdminContributions'
 import AdminVendorApplications from './pages/AdminVendorApplications'
+import AdminProducts from './pages/AdminProducts'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = localStorage.getItem('admin_token')
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<AdminDashboard />} />
           <Route path="users" element={<AdminUsers />} />
+          <Route path="products" element={<AdminProducts />} />
           <Route path="vendor-applications" element={<AdminVendorApplications />} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="contributions" element={<AdminContributions />} />

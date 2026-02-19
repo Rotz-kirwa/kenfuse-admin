@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation } from 'react-router-dom'
-import { Shield, LayoutDashboard, Users, FolderTree, DollarSign, LogOut } from 'lucide-react'
+import { Shield, LayoutDashboard, Users, FolderTree, DollarSign, LogOut, Package } from 'lucide-react'
 import AdminFooter from './AdminFooter'
 
 export default function AdminLayout() {
@@ -8,6 +8,7 @@ export default function AdminLayout() {
   const navLinks = [
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Users', path: '/users', icon: Users },
+    { name: 'Products', path: '/products', icon: Package },
     { name: 'Categories', path: '/categories', icon: FolderTree },
     { name: 'Contributions', path: '/contributions', icon: DollarSign }
   ]
